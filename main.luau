@@ -683,36 +683,8 @@ Options.Visible = true
 
 if Player.Character then
     task.spawn(UpdateCharacter, Player.Character)
-
-    task.wait(2)
-    
-    local Uniform = Player.Character:WaitForChild("Uniform")
-    
-    for _, Part in Uniform:GetChildren() do
-        task.spawn(function()
-            if Part:IsA("BasePart") then
-                Part:GetPropertyChangedSignal("Transparency"):Connect(function()
-                    UpdateCharacter(Player.Character)
-                end)
-            end
-        end) 
-    end
 end
 
 Player.CharacterAdded:Connect(function(Character)
     UpdateCharacter(Character)
-
-    task.wait(2)
-    
-    local Uniform = Player.Character:WaitForChild("Uniform")
-    
-    for _, Part in Uniform:GetChildren() do
-        task.spawn(function()
-            if Part:IsA("BasePart") then
-                Part:GetPropertyChangedSignal("Transparency"):Connect(function()
-                    UpdateCharacter(Character)
-                end)
-            end
-        end) 
-    end
 end)
