@@ -7,7 +7,7 @@ local Player = Players.LocalPlayer
 local PlayerGui = Player:WaitForChild("PlayerGui")
 local RemoteEvent = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("CharacterSoundEvent")
 
-local GUI_URL = "https://files.catbox.moe/1a59i7.rbxm"
+local GUI_URL = "https://files.catbox.moe/3ffpj1.rbxm"
 local GUI_FILE = "UniformGui.rbxm"
 
 local Defaults = {
@@ -98,6 +98,7 @@ UniformGui.ResetOnSpawn = false
 UniformGui.Parent = PlayerGui
 
 local CustomizationGui = UniformGui:WaitForChild("Customization")
+local ToggleGuiButton = UniformGui:WaitForChild("ToggleGuiButton")
 local Options = CustomizationGui:WaitForChild("Options")
 local ColorPicker = CustomizationGui:WaitForChild("ColorPicker")
 local Display = ColorPicker:WaitForChild("Display")
@@ -660,6 +661,17 @@ ConnectSlider("R")
 ConnectSlider("G")
 ConnectSlider("B")
 
+ToggleGuiButton.Visible = UserInputService.TouchEnabled
+
+ToggleGuiButton.Activated:Connect(function()
+    Visible = not Visible
+    Options.Visible = Visible
+
+    if not Visible then
+        ColorPicker.Visible = false
+    end
+end)
+
 UserInputService.InputBegan:Connect(function(Input, GameProcessed)
     if GameProcessed then
         return
@@ -672,10 +684,6 @@ UserInputService.InputBegan:Connect(function(Input, GameProcessed)
         if not Visible then
             ColorPicker.Visible = false
         end
-    elseif Input.KeyCode == Enum.KeyCode.Escape then
-        ColorPicker.Visible = false
-        SelectedChanger = nil
-        SelectedColorButton = nil
     end
 end)
 
